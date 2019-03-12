@@ -1,16 +1,10 @@
 {
   "dependencies": {
-    "nodemon": "1.18.9",
+    "nodemon": "1.18.3",
     "redis": "2.8.0"
   },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon"
-  },
-  "name": "worker",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }

@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Postgres Client Setup (SQl type database similar to mysql)
+// Postgres Client Setup
 const { Pool } = require('pg');
 const pgClient = new Pool({
   user: keys.pgUser,
@@ -21,8 +21,8 @@ const pgClient = new Pool({
 pgClient.on('error', () => console.log('Lost PG connection'));
 
 pgClient
-.query('CREATE TABLE IF NOT EXISTS values (number INT)')
-.catch(err => console.log(err));
+  .query('CREATE TABLE IF NOT EXISTS values (number INT)')
+  .catch(err => console.log(err));
 
 // Redis Client Setup
 const redis = require('redis');
@@ -51,7 +51,7 @@ app.get('/values/current', async (req, res) => {
   });
 });
 
-app.post('values', async (req, res) => {
+app.post('/values', async (req, res) => {
   const index = req.body.index;
 
   if (parseInt(index) > 40) {
@@ -59,7 +59,7 @@ app.post('values', async (req, res) => {
   }
 
   redisClient.hset('values', index, 'Nothing yet!');
-  redisPublisher.publisher('insert', index);
+  redisPublisher.publish('insert', index);
   pgClient.query('INSERT INTO values(number) VALUES($1)', [index]);
 
   res.send({ working: true });
