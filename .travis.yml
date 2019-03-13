@@ -1,7 +1,7 @@
 # fixing node version as node 11.11 is failing test cases on travis CI
 language: node_js
 node_js:
-  - "11.10.1"
+  - "10.15.3"
 
 sudo: required
 services:
