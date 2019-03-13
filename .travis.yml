@@ -5,6 +5,10 @@ services:
 before_install:
   - docker build -t danielpremkumar/react-test -f ./client/Dockerfile.dev ./client
 
+# fixing node version as node 11.11 is failing test cases on travis CI 
+node_js:
+  - "11.10.1"
+
 script:
   - docker run danielpremkumar/react-test npm test -- --coverage
 
