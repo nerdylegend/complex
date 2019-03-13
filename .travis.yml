@@ -1,4 +1,6 @@
-# fixing node version as node 11.11 is failing test cases on travis CI(Commented as node version is set with the docker image)
+# fixing node version as node 11.11 is failing test cases on travis CI
+#(Commented as node version is set with the docker image)
+# The node version set in travis fine will only be used in travis pipeline and not inside the docker iamge where the test cases run
 #language: node_js
 #node_js:
 #  - "10.15.3"
