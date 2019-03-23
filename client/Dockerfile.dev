@@ -1,7 +1,6 @@
-# FROM node:alpine (Not using alphine as current latest version on node 11.11.0 has problem with react test cases/jest)
-FROM node:lts-alpine
+FROM node:alpine
 WORKDIR '/app'
 COPY ./package.json ./
 RUN npm install
 COPY . .
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]

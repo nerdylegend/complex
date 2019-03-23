@@ -1,10 +1,3 @@
-# fixing node version as node 11.11 is failing test cases on travis CI
-#(Commented as node version is set with the docker image)
-# The node version set in travis fine will only be used in travis pipeline and not inside the docker iamge where the test cases run
-#language: node_js
-#node_js:
-#  - "10.15.3"
-
 sudo: required
 services:
   - docker
@@ -18,22 +11,22 @@ script:
 after_success:
   - docker build -t danielpremkumar/multi-client ./client
   - docker build -t danielpremkumar/multi-nginx ./nginx
-  - docker build -t danielpremkumar/multi-api ./server
+  - docker build -t danielpremkumar/multi-server ./server
   - docker build -t danielpremkumar/multi-worker ./worker
-  # Log in to docker CLI
+  # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
   - docker push danielpremkumar/multi-client
   - docker push danielpremkumar/multi-nginx
-  - docker push danielpremkumar/multi-api
+  - docker push danielpremkumar/multi-server
   - docker push danielpremkumar/multi-worker
 
 deploy:
   provider: elasticbeanstalk
-  region: us-east-2
+  region: us-west-1
   app: multi-docker
   env: MultiDocker-env
-  bucket_name: elasticbeanstalk-us-east-2-268161157189
+  bucket_name: elasticbeanstalk-us-west-1-306476627547
   bucket_path: docker-multi
   on:
     branch: master
